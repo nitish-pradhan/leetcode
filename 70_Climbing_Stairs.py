@@ -15,6 +15,7 @@ Explanation: There are three ways to climb to the top.
 # Intuition - If we can reach to [n-1] or [n-2] steps then from there we need just one step to reach the top.
 # We should calculate different ways to reach n-1 and n-2 steps and to reach n steps will be summation of both.
 # For memoization we just need to keep track of the ways we have counted.
+# Time = O(n), Space = O(n)
 
 def climbStairs(n: int) -> int:
     def helper(n:int) -> int:

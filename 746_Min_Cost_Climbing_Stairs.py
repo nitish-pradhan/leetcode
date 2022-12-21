@@ -26,6 +26,8 @@ Base cases:
     mincost(1) = cost[1]
 '''
 
+# Time = O(n), Space = O(n)
+
 def minCostClimbingStairs(cost: list) -> int:
     def get_cost(cost:list, step:int) -> int:
         if step < 0:
