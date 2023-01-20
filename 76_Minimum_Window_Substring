@@ -1,0 +1,52 @@
+'''
+Given two strings s and t of lengths m and n respectively, return the minimum window
+substring
+of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
+
+The testcases will be generated such that the answer is unique.
+
+Input: s = "ADOBECODEBANC", t = "ABC"
+Output: "BANC"
+Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
+
+'''
+
+
+from collections import defaultdict
+
+def minWindow(s: str, t: str) -> str:
+    t_map = defaultdict(int)
+    for char in t:
+        t_map[char] += 1
+    t_uniq = len(t_map) # To track required unique characters
+    start, end = 0, 0
+    result = ''
+
+    while end < len(s):
+        #Calculation
+        if s[end] in t_map:
+            t_map[s[end]] -= 1
+            if t_map[s[end]] == 0:
+                t_uniq -= 1
+        
+        if t_uniq == 0: # Found one answer
+            #Need to optimize the answer
+            while t_uniq == 0:
+                if end-start+1 < len(result) or result == '':
+                    result = s[start : end+1]
+                if s[start] in t_map:
+                    if t_map[s[start]] < 0 or t_map[s[start]] > 0:
+                        t_map[s[start]] += 1
+                    else:
+                        t_map[s[start]] += 1
+                        t_uniq += 1
+                start += 1
+            end += 1
+        else:
+            # Haven't found answer, look for it. Increase end
+            end += 1
+    return result
+
+s = "ADOBECODEBANC"
+t = "ABC"
+print(minWindow(s, t))
